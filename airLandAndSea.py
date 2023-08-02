@@ -1,52 +1,9 @@
 #!/usr/bin/env python3
-import time, pygame, random, os
+import random
 import speech_recognition as sr
+from subprocess import call
 
-sounds = pygame.mixer
-sounds.init()
-
-directory = "wav/"
-
-shuffle = "shuffle/"
-response = "response/"
-
-alreadyPaused = "alreadyPaused.wav"
-alreadyRunning = "alreadyRunning.wav"
-cannotDoThatDuringGame = "cannotDoThatDuringGame.wav"
-cannotDoThatYet = "cannotDoThatYet.wav"
-endingGame = "endingGame.wav"
-fastest = "fastest.wav"
-invalid = "invalid.wav"
-oneOrTwoWords = "oneOrTwoWords.wav"
-paused = "paused.wav"
-poweringOn = "poweringOn.wav"
-resuming = "resuming.wav"
-shutDown = "shutDown.wav"
-slowest = "slowest.wav"
-startingGame = "startingGame.wav"
-
-sAlreadyPaused = sounds.Sound(directory + response + alreadyPaused)                    # Game is already paused
-sAlreadyRunning = sounds.Sound(directory + response + alreadyRunning)                  # Game is already running
-sCannotDoThatDuringGame = sounds.Sound(directory + response + cannotDoThatDuringGame)  # Cannot do that during game
-sCannotDoThatYet = sounds.Sound(directory + response + cannotDoThatYet)                # Cannot do that yet
-sEndingGame = sounds.Sound(directory + response + endingGame)                          # Ending the game
-sInvalid = sounds.Sound(directory + response + invalid)                                # Command is not valid
-sOneOrTwoWords = sounds.Sound(directory + response + oneOrTwoWords)                    # Use one or two words only
-sPaused = sounds.Sound(directory + response + paused)                                  # Paused
-sPowerOn = sounds.Sound(directory + response + poweringOn)                             # Powering on
-sResuming = sounds.Sound(directory + response + resuming)                              # Resuming
-sShutDown = sounds.Sound(directory + response + shutDown)                              # Shutting down
-sStartingGame = sounds.Sound(directory + response + startingGame)                      # Starting game
-
-female = []
-femaleDirectory = os.fsencode(directory + shuffle)
-for file in os.listdir(os.fsencode(femaleDirectory)):
-     filename = os.fsdecode(file)
-     if filename.endswith(".wav"):
-         female.append(sounds.Sound(directory + shuffle + filename))
-         continue
-     else:
-         continue
+outputs = ["air", "land", "sea"]
 
 gameRunning = False
 gamePaused = False
@@ -57,17 +14,10 @@ startCommand = "start"
 pauseCommand = "pause"
 resumeCommand = "resume"
 endGameCommand = "stop"
-fasterCommand = "faster"
-slowerCommand = "slower"
 
 def randomLine():
-    x = random.randint(0, len(female)-1)
-    female[x].play()
-    time.sleep(female[x].get_length())
-
-def playback(spokenLine):
-    spokenLine.play()
-    time.sleep(spokenLine.get_length())
+    x = random.randint(0, len(outputs)-1)
+    call("espeak \"" + outputs[x] + "\"", shell=True)
 
 def recognize_microphone():
     global gameRunning
@@ -98,49 +48,48 @@ def recognize_microphone():
         recognize_microphone()
 
     if len(transcript.split()) > 2:
-        sOneOrTwoWords.play()
-        time.sleep(sOneOrTwoWords.get_length())
+        call("espeak \"Use one or two words only.\"", shell=True)
         recognize_microphone()
     else:
         if transcript == shutDownCommand:
             if gameRunning:
-                playback(sCannotDoThatDuringGame)
+                call("espeak \"Cannot do that during the game\"", shell=True)
             else:
                 powerFunctioning = False
-                playback(sShutDown)
+                call("espeak \"Good bye\"", shell=True)
         elif transcript == startCommand:
             if gameRunning:
-                playback(sAlreadyRunning)
+                call("espeak \"Game is already running\"", shell=True)
             else:
                 gameRunning = True
-                playback(sStartingGame)
+                call("espeak \"Starting the game\"", shell=True)
         elif transcript == endGameCommand:
             if gameRunning:
                 gameRunning = False
-                playback(sEndingGame)
+                call("espeak \"Game end\"", shell=True)
             else:
-                playback(sCannotDoThatYet)
+                call("espeak \"Cannot do that yet\"", shell=True)
         elif transcript == pauseCommand:
             if gameRunning:
                 if gamePaused:
-                    playback(sAlreadyPaused)
+                    call("espeak \"Game is already paused\"", shell=True)
                 else:
                     gamePaused = True
-                    playback(sPaused)
+                    call("espeak \"Paused\"", shell=True)
             else:
-                playback(sCannotDoThatYet)
+                call("espeak \"Cannot do that yet\"", shell=True)
         elif transcript == resumeCommand:
             if gameRunning:
                 if gamePaused:
                     gamePaused = False
-                    playback(sResuming)
+                    call("espeak \"Resuming\"", shell=True)
                 else:
-                    playback(sCannotDoThatYet)
+                    call("espeak \"Cannot do that yet\"", shell=True)
             else:
-                playback(sCannotDoThatYet)
+                call("espeak \"Cannot do that yet\"", shell=True)
         else:
             if powerFunctioning:
-                playback(sInvalid)
+                call("espeak \"Unknown command\"", shell=True)
             else:
                 pass
 
@@ -149,5 +98,5 @@ def recognize_microphone():
         else:
             pass
 
-playback(sPowerOn)
+call("espeak \"Hello\"", shell=True)
 recognize_microphone()
