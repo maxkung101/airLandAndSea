@@ -29,15 +29,21 @@ def recognize_microphone():
     if gameRunning:
         if gamePaused:
             with sr.Microphone() as source:
+                #adjust for ambient noise
+                r.adjust_for_ambient_noise(source)
                 print("Say something!")
                 audio = r.listen(source)
         else:
             randomLine()
             with sr.Microphone() as source:
+                #adjust for ambient noise
+                r.adjust_for_ambient_noise(source)
                 print("Say something!")
                 audio = r.listen(source, timeout=4)
     else:
         with sr.Microphone() as source:
+            #adjust for ambient noise
+            r.adjust_for_ambient_noise(source)
             print("Say something!")
             audio = r.listen(source)
 
