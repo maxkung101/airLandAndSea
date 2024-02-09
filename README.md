@@ -1,4 +1,4 @@
-Python code for raspberry pi robot to moderate air land and sea
+Python code for raspberry pi to moderate air land and sea
 
 Requires espeak
 
