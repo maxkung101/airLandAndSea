@@ -4,7 +4,6 @@ import speech_recognition as sr
 from subprocess import call
 
 gameRunning = False
-
 startCommand = "start"
 endGameCommand = "stop"
 
@@ -28,9 +27,9 @@ while True:
         audio = r.listen(source, timeout=4)
     try:
         transcript = r.recognize_google(audio)
-        if transcript == "start":
+        if transcript == startCommand:
             gameRunning = True
-        elif transcript == "stop":
+        elif transcript == endGameCommand:
             gameRunning = False
         else:
             pass
