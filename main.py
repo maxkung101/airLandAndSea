@@ -25,13 +25,13 @@ while True:
         #adjust for ambient noise
         r.adjust_for_ambient_noise(source)
         audio = r.listen(source, timeout=4)
-    try:
-        transcript = r.recognize_google(audio)
-        if transcript == startCommand:
-            gameRunning = True
-        elif transcript == endGameCommand:
-            gameRunning = False
-        else:
+    	try:
+            transcript = r.recognize_google(audio)
+            if transcript == startCommand:
+                gameRunning = True
+            elif transcript == endGameCommand:
+                gameRunning = False
+            else:
+                pass
+    	except:
             pass
-    except:
-        pass
