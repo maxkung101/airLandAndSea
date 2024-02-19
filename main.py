@@ -22,10 +22,10 @@ while True:
     transcript = ""
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        #adjust for ambient noise
+        # adjust for ambient noise
         r.adjust_for_ambient_noise(source)
-        audio = r.listen(source, timeout=4)
-    	try:
+        try:
+            audio = r.listen(source, timeout=4)
             transcript = r.recognize_google(audio)
             if transcript == startCommand:
                 gameRunning = True
@@ -33,5 +33,7 @@ while True:
                 gameRunning = False
             else:
                 pass
+        except sr.WaitTimeoutError:
+            pass
         except:
             pass
