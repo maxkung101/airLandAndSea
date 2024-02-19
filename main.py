@@ -33,5 +33,5 @@ while True:
                 gameRunning = False
             else:
                 pass
-    	except:
+        except:
             pass
