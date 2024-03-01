@@ -4,18 +4,22 @@ import speech_recognition as sr
 from subprocess import call
 from gpiozero import LED
 
+# Initiate
 led = LED(17)
 gameRunning = False
 startCommand = "start"
 endGameCommand = "stop"
 
+# Function
 def randomLine():
     outputs = ["air", "land", "sea"]
     x = random.randint(0, len(outputs)-1)
     call("espeak \"" + outputs[x] + "\"", shell=True)
 
+# Startup sound
 call("espeak \"Hello\"", shell=True)
 
+# Run
 while True:
     if gameRunning:
         randomLine()
