@@ -17,11 +17,13 @@ $ sudo apt install -y espeak
 ```
 
 ### Download source code
+Type in the following command in your raspberry pi terminal.
 ```
 $ gh repo clone maxkung101/airLandAndSea
 ```
 
 ### Install python libraries
+Use the following raspberry pi terminal commands.
 ```
 $ cd airLandAndSea/
 $ pip install -r requirements.txt
@@ -30,6 +32,7 @@ $ cd ../
 
 ## How to use
 ### Run software
+To run, type in the following commands.
 ```
 $ cd airLandAndSea/
 $ python main.py
