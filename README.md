@@ -1,7 +1,12 @@
 # Air Land Sea Assistant
 Python code for raspberry pi to moderate air land and sea
 
-## Installation
+## Setup and Installation
+### Requirements
+* 1 LED
+* 2 M to F Jumper wires
+* 1 Breadboard
+
 ### Install your dependencies
 Make sure you have espeak installed on your raspberry pi.
 ```
