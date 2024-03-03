@@ -38,5 +38,6 @@ $ cd airLandAndSea/
 $ python main.py
 ```
 
-## Credits
+## About
+### Credits
 Programmed by Max Kung
