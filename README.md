@@ -12,3 +12,6 @@ $ sudo apt install -y espeak
 ```
 $ gh repo clone maxkung101/airLandAndSea
 ```
+
+## Credits
+Programmed by Max Kung
