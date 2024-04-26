@@ -2,10 +2,8 @@
 import random
 import speech_recognition as sr
 from subprocess import call
-from gpiozero import LED
 
 # Initiate
-led = LED(17)
 gameRunning = False
 startCommand = "start"
 endGameCommand = "stop"
@@ -34,10 +32,8 @@ while True:
             audio = r.listen(source, timeout=4)
             transcript = r.recognize_google(audio)
             if transcript == startCommand:
-                led.on()
                 gameRunning = True
             elif transcript == endGameCommand:
-                led.off()
                 gameRunning = False
             else:
                 pass

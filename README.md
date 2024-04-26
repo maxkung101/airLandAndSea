@@ -3,9 +3,6 @@ Python code for raspberry pi to moderate air land and sea
 
 ## Setup and Installation
 ### Requirements
-* 1 LED
-* 2 M to F Jumper wires
-* 1 Breadboard
 * Audio input
 * Audio output
 * Internet connection (for now)
