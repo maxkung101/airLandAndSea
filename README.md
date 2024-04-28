@@ -5,7 +5,6 @@ Python code for raspberry pi to moderate air land and sea
 ### Requirements
 * Audio input
 * Audio output
-* Internet connection (for now)
 
 ### Install your dependencies
 Make sure you have espeak installed on your raspberry pi.

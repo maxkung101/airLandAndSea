@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-import random
-import speech_recognition as sr
+import random, subprocess
 from subprocess import call
 
 # Initiate
@@ -14,6 +13,9 @@ def randomLine():
     x = random.randint(0, len(outputs)-1)
     call("espeak \"" + outputs[x] + "\"", shell=True)
 
+# Define the command to run the Vosk process
+command = ['python', 'voiceCommand.py']
+
 # Startup sound
 call("espeak \"Hello\"", shell=True)
 
@@ -24,20 +26,15 @@ while True:
     else:
         pass
     transcript = ""
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        # adjust for ambient noise
-        r.adjust_for_ambient_noise(source)
-        try:
-            audio = r.listen(source, timeout=4)
-            transcript = r.recognize_google(audio)
-            if transcript == startCommand:
-                gameRunning = True
-            elif transcript == endGameCommand:
-                gameRunning = False
-            else:
-                pass
-        except sr.WaitTimeoutError:
+    try:
+        # Run the command with a timeout of 4 seconds
+        result = subprocess.run(command, capture_output=True, text=True, timeout=4)
+        transcript = result.stdout
+        if transcript == startCommand:
+            gameRunning = True
+        elif transcript == endGameCommand:
+            gameRunning = False
+        else:
             pass
-        except:
-            pass
+    except subprocess.TimeoutExpired:
+        pass
