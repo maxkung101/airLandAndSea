@@ -1,40 +1,48 @@
 #!/usr/bin/env python3
-import random, subprocess
-from subprocess import call
+from subprocess import call, Popen, PIPE
+from vosk import Model, KaldiRecognizer
+import pyaudio
 
-# Initiate
+# Load the Vosk model
+model = Model("vosk-model-small-en-us-0.15")
+
+# Initialize the recognizer with the model
+recognizer = KaldiRecognizer(model, 16000)
+
+# Start the microphone and process audio input
+p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
+stream.start_stream()
+
+# Initiate variables
 gameRunning = False
 startCommand = "start"
 endGameCommand = "stop"
 
-# Function
-def randomLine():
-    outputs = ["air", "land", "sea"]
-    x = random.randint(0, len(outputs)-1)
-    call("espeak \"" + outputs[x] + "\"", shell=True)
-
-# Define the command to run the Vosk process
-command = ['python', 'voiceCommand.py']
+# Define the command to run the process
+command = ['python', 'loop.py']
 
 # Startup sound
 call("espeak \"Hello\"", shell=True)
 
 # Run
 while True:
-    if gameRunning:
-        randomLine()
-    else:
-        pass
-    transcript = ""
-    try:
-        # Run the command with a timeout of 4 seconds
-        result = subprocess.run(command, capture_output=True, text=True, timeout=4)
-        transcript = result.stdout
-        if transcript == startCommand:
+    # Process audio chunks as they come in
+    data = stream.read(4096)
+    if recognizer.AcceptWaveform(data):
+        result = recognizer.Result()
+        # Here, you can parse the result and execute commands based on the recognized text
+        transcript = result[14:-3]
+        if transcript == startCommand and gameRunning == False:
             gameRunning = True
-        elif transcript == endGameCommand:
+            proc = Popen(command, stdout=PIPE, stderr=PIPE)
+        elif transcript == endGameCommand and gameRunning == True:
             gameRunning = False
+            try:
+                proc.kill()
+            except NameError:
+                pass
         else:
             pass
-    except subprocess.TimeoutExpired:
+    else:
         pass
