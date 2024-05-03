@@ -4,7 +4,7 @@ from vosk import Model, KaldiRecognizer
 import pyaudio
 
 # Load the Vosk model
-model = Model("vosk-model-small-en-us-0.15")
+model = Model("path_to_your_vosk_model_directory")
 
 # Initialize the recognizer with the model
 recognizer = KaldiRecognizer(model, 16000)
