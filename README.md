@@ -11,7 +11,7 @@ Make sure you have espeak installed on your raspberry pi.
 ```
 $ sudo apt install -y espeak
 ```
-You will also need to download a vosk model: [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models)
+You will also need to download a vosk model: [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models).
 
 ### Download source code
 Type in the following command in your raspberry pi terminal.
