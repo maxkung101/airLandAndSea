@@ -33,16 +33,18 @@ while True:
         result = recognizer.Result()
         # Here, you can parse the result and execute commands based on the recognized text
         transcript = result[14:-3]
-        if transcript == startCommand and gameRunning == False:
-            gameRunning = True
-            proc = Popen(command, stdout=PIPE, stderr=PIPE)
-        elif transcript == endGameCommand and gameRunning == True:
-            gameRunning = False
-            try:
-                proc.kill()
-            except NameError:
+        list = transcript.split()
+        for x in list:
+            if x == startCommand and gameRunning == False:
+                gameRunning = True
+                proc = Popen(command, stdout=PIPE, stderr=PIPE)
+            elif x == endGameCommand and gameRunning == True:
+                gameRunning = False
+                try:
+                    proc.kill()
+                except NameError:
+                    pass
+            else:
                 pass
-        else:
-            pass
     else:
         pass
