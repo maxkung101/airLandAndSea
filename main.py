@@ -24,27 +24,30 @@ command = ['python', 'loop.py']
 
 # Startup sound
 call("espeak \"Hello\"", shell=True)
+transcript = []
 
 # Run
 while True:
     # Process audio chunks as they come in
     data = stream.read(4096)
     if recognizer.AcceptWaveform(data):
-        result = recognizer.Result()
-        # Here, you can parse the result and execute commands based on the recognized text
-        transcript = result[14:-3]
-        list = transcript.split()
-        for x in list:
-            if x == startCommand and gameRunning == False:
-                gameRunning = True
-                proc = Popen(command, stdout=PIPE, stderr=PIPE)
-            elif x == endGameCommand and gameRunning == True:
-                gameRunning = False
-                try:
-                    proc.kill()
-                except NameError:
-                    pass
-            else:
-                pass
+        transcript = transcript + recognizer.Result()[14:-3].split()
     else:
-        pass
+        transcript = transcript + recognizer.PartialResult()[14:-3].split()
+    # Here, you can parse the result and execute commands based on the recognized text
+    for x in transcript:
+        if x == startCommand and gameRunning == False:
+            gameRunning = True
+            proc = Popen(command, stdout=PIPE, stderr=PIPE)
+            break
+        elif x == endGameCommand and gameRunning == True:
+            gameRunning = False
+            try:
+                proc.kill()
+            except NameError:
+                pass
+            break
+        else:
+            pass
+    for i in transcript:
+        transcript.remove(i)
