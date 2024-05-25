@@ -24,9 +24,9 @@ command = ['python', 'loop.py']
 
 # Startup sound
 call("espeak \"Hello\"", shell=True)
-transcript = []
 
 # Run
+transcript = []
 while True:
     # Process audio chunks as they come in
     data = stream.read(4096)
