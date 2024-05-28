@@ -3,5 +3,8 @@
 # Visual Studio cache directory
 .vs/
 
+# Memory file
+*.csv
+
 # Vosk model directory
 vosk-model-small-en-us-0.15/
