@@ -23,7 +23,7 @@ except:
     f.close()
 
 # Model loading and setup (replace with your own model path)
-model_path = "vosk-model-small-en-us-0.15"
+model_path = "path/to/your/model"
 model = Model(model_path)
 recognizer = KaldiRecognizer(model, 16000)
 
