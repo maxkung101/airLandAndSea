@@ -1,5 +1,5 @@
 # Air Land Sea Assistant
-Python code for raspberry pi to moderate air land and sea
+Software for raspberry pi to moderate air land and sea
 
 ## Setup and Installation
 ### Requirements
