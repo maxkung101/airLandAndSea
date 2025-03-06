@@ -22,8 +22,8 @@ except:
     f.write(defaultVoice)
     f.close()
 
-# Model loading and setup (replace with your own model path)
-model_path = "path/to/your/model"
+# Model loading and setup
+model_path = "vosk-model-small-en-us-0.15"
 model = Model(model_path)
 recognizer = KaldiRecognizer(model, 16000)
 
