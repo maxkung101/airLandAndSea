@@ -29,6 +29,8 @@ To run, type in the following command while in the repository folder.
 $ python main.py
 ```
 
+![image info](img/AirLandSea.png)
+
 ## About
 ### Credits
 Programmed by Max Kung
