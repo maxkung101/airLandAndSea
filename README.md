@@ -1,5 +1,5 @@
 # Air Land Sea Assistant
-Software for raspberry pi to moderate air land and sea
+![image info](img/AirLandSea.png)
 
 ## Setup
 ### PC instructions
@@ -28,8 +28,6 @@ To run, type in the following command while in the repository folder.
 ```
 $ python main.py
 ```
-
-![image info](img/AirLandSea.png)
 
 ## About
 ### Credits
