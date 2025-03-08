@@ -1,5 +1,5 @@
 # Air Land Sea Assistant
-![image info](img/AirLandSea.png)
+![image info](img/AirLandSea_desktop_wallpaper.png)
 
 ## Setup
 ### PC instructions
